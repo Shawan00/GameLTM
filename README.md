@@ -2,7 +2,7 @@
 
 Thêm các file jar cần thiết trong newLib vào 2 project
 
-Cài font chữ trong newLib
+Cài font chữ newLib/FVF.ttf
 
 Mở MySQL và chạy lệnh trong file Query.txt
 
