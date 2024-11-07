@@ -4,6 +4,9 @@ package controller;
 import dao.UserDAO;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 
 public class Room {
@@ -13,7 +16,7 @@ public class Room {
     private String password;
     private final UserDAO userDAO;
     private int [][] matrix;
-    private int scoreUser1, scoreUser2;
+    private int scoreUser1, scoreUser2, cntRe = 0, valueRe = 0;
     private boolean sendResult, updateHistory;
 
     public Room(ServerThread user1) {
@@ -25,26 +28,74 @@ public class Room {
         userDAO = new UserDAO();
         this.user1 = user1;
         this.user2 = null;
-        Random rand = new Random();
-        matrix = new int[7][7];
-        for (int i = 0; i < 7; i++) {
-            for (int j = 0; j < 7; j++) {
-                matrix[i][j] = rand.nextInt(9) + 1; // Generate values from 1 to 9
-            }
-        }
+        this.cntRe = 0;
+        this.valueRe = 8;
+        updateMatrix();
         scoreUser1 = -1;
         scoreUser2 = -1;
     }
     
+    private void updateValue(int a){
+        for (int i = 0; i < 7; i++) {
+            boolean check = true;
+            for (int j = 0; j < 7; j++) {
+                if(matrix[i][j] == a){
+                    matrix[i][j] = this.valueRe;
+                    cntRe++;
+                    if(cntRe==2){
+                        cntRe = 0;
+                        this.valueRe++;
+                    }
+                    check = false;
+                    break;
+                }
+            }
+            if(!check) break;
+        }
+    }
+    
     public void updateMatrix(){
         Random rand = new Random();
+        matrix = new int[7][7];
+        int[]arrCnt = new int[8];
         for (int i = 0; i < 7; i++) {
             for (int j = 0; j < 7; j++) {
-                matrix[i][j] = rand.nextInt(9) + 1; // Generate values from 1 to 9
+                matrix[i][j] = rand.nextInt(8); 
+                arrCnt[matrix[i][j]]++;
+            }
+        }
+        
+        
+        for(int i = 0; i< 8;i++){
+            if(arrCnt[i]%2==1){
+                updateValue(i);
+            }
+        }
+        
+ 
+        shuffleMatrix(matrix);
+    }
+    
+    public void shuffleMatrix(int[][] matrix) {
+        int rows = 7;
+        int cols = 7;
+        List<Integer> list = new ArrayList<>();
+        for (int[] row : matrix) {
+            for (int value : row) {
+                list.add(value);
+            }
+        }
+        Collections.shuffle(list);
+        int index = 0;
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                matrix[i][j] = list.get(index++);
             }
         }
     }
-
+    
+    
+    
     public int[][] getMatrix() {
         return matrix;
     }

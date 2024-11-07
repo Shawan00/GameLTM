@@ -3,7 +3,17 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/GameLTM/BTLServer/src/controller/ServerMain.java</file>
+            <file>file:/D:/tung/fourth_year/LTM/BTLServer/src/controller/ServerMain.java</file>
+            <file>file:/D:/tung/fourth_year/LTM/BTLServer/src/dao/connectToDatabase.java</file>
+            <file>file:/D:/tung/fourth_year/LTM/BTLServer/src/dao/HistoryDao.java</file>
+            <file>file:/D:/tung/fourth_year/LTM/BTLServer/src/controller/ServerThreadBus.java</file>
+            <file>file:/D:/tung/fourth_year/LTM/BTLServer/src/controller/Room.java</file>
+            <file>file:/D:/tung/fourth_year/LTM/BTLServer/src/controller/ServerThread.java</file>
+            <file>file:/D:/tung/fourth_year/LTM/BTLServer/src/model/Pikachu.java</file>
+            <file>file:/D:/tung/fourth_year/LTM/BTLServer/src/model/History.java</file>
+            <file>file:/D:/tung/fourth_year/LTM/BTLServer/src/model/User.java</file>
+            <file>file:/D:/tung/fourth_year/LTM/BTLServer/src/dao/PikachuDao.java</file>
+            <file>file:/D:/tung/fourth_year/LTM/BTLServer/src/dao/UserDAO.java</file>
         </group>
     </open-files>
 </project-private>

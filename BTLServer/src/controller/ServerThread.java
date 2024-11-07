@@ -1,11 +1,9 @@
 package controller;
 
-import Bin.PlayDAO;
 import dao.HistoryDao;
 import dao.PikachuDao;
 import dao.UserDAO;
 import model.User;
-
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -16,7 +14,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.History;
 import model.Pikachu;
-import model.Play;
 
 public class ServerThread implements Runnable {
 
@@ -28,7 +25,6 @@ public class ServerThread implements Runnable {
     private boolean isClosed;
     private Room room;
     private final UserDAO userDAO;
-    private final PlayDAO playDao;
     private final HistoryDao historyDao;
     private final PikachuDao pikachuDao;
     private final String clientIP;
@@ -39,7 +35,6 @@ public class ServerThread implements Runnable {
         this.clientNumber = clientNumber;
         System.out.println("Server thread number " + clientNumber + " Started");
         userDAO = new UserDAO();
-        playDao = new PlayDAO();
         historyDao = new HistoryDao();
         pikachuDao = new PikachuDao();
         this.checkUpdateHistory = false;
@@ -205,20 +200,7 @@ public class ServerThread implements Runnable {
                     
                 }
                 
-                
-                // Thêm màn chơi
-                if(messageSplit[0].equals("addPlay")){
-                    System.out.println("11");
-                    int[] input = new int[10];
-                    input[0] = 0;
-                    String img = messageSplit[1];
-                    for(int i = 1; i < 9; i++){
-                        input[i] = Integer.parseInt(messageSplit[i+1]);
-                    }
-                    Play play = new Play(img,input);
-                    playDao.addPlay(play);
-                    write("add-play-success");
-                }
+               
                 //Xử lý người chơi đăng xuất
                 if (messageSplit[0].equals("offline")) {
                     userDAO.updateToOffline(this.user.getID());
@@ -260,15 +242,7 @@ public class ServerThread implements Runnable {
                     userDAO.updateAvatar(this.user.getID(), messageSplit[1]);
                 }
                 
-                //xử lý khi xem danh sách màn chơi
-                if(messageSplit[0].equals("view-play-list")){
-                    List<Play> plays = playDao.getListPlay();
-                    String mess = "return-play-list";
-                    for(Play play:plays){
-                        mess+=(","+play.getId()+","+play.getInput0());
-                    }
-                    write(mess);
-                }
+               
                 //Xử lý chat toàn server
                 if (messageSplit[0].equals("chat-server")) {
                     ServerMain.serverThreadBus.boardCast(clientNumber, messageSplit[0] + "," + user.getNickname() + " : " + messageSplit[1]);
