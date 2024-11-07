@@ -80,7 +80,19 @@ public class HomePageFrm extends javax.swing.JFrame {
         jLayeredPane1 = new javax.swing.JLayeredPane();
         jFileChooser1 = new javax.swing.JFileChooser();
         jInternalFrame1 = new javax.swing.JInternalFrame();
+        jPanel2 = new javax.swing.JPanel();
+        goRoomButton = new javax.swing.JButton();
+        createRoomButton = new javax.swing.JButton();
+        scoreBotButton = new javax.swing.JButton();
+        friendListButton = new javax.swing.JButton();
+        exitGameButton = new javax.swing.JButton();
+        findRoomButton = new javax.swing.JButton();
+        quickGameButton = new javax.swing.JButton();
+        scoreBoardButton = new javax.swing.JButton();
+        historyButton = new javax.swing.JButton();
+        listUserButton = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
         numberOfWinLabel = new javax.swing.JLabel();
         numberOfWinValue = new javax.swing.JLabel();
         numberOfGameValue = new javax.swing.JLabel();
@@ -95,27 +107,12 @@ public class HomePageFrm extends javax.swing.JFrame {
         drawValue = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jSeparator2 = new javax.swing.JSeparator();
+        jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         messageTextArea = new javax.swing.JTextArea();
         messageInput = new javax.swing.JTextField();
         sendMessageButton = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
-        goRoomButton = new javax.swing.JButton();
-        createRoomButton = new javax.swing.JButton();
-        scoreBotButton = new javax.swing.JButton();
-        friendListButton = new javax.swing.JButton();
-        exitGameButton = new javax.swing.JButton();
-        findRoomButton = new javax.swing.JButton();
-        quickGameButton = new javax.swing.JButton();
-        scoreBoardButton = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
-        jSeparator1 = new javax.swing.JSeparator();
-        historyButton = new javax.swing.JButton();
-        listUserButton = new javax.swing.JButton();
-        jPanel3 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
         jLayeredPane1.setLayout(jLayeredPane1Layout);
@@ -142,122 +139,275 @@ public class HomePageFrm extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(1009, 1009));
+        setPreferredSize(new java.awt.Dimension(920, 665));
+        setSize(new java.awt.Dimension(920, 665));
 
-        jPanel1.setBackground(new java.awt.Color(102, 102, 102));
+        jPanel2.setMaximumSize(new java.awt.Dimension(1009, 627));
+        jPanel2.setPreferredSize(new java.awt.Dimension(910, 627));
+        jPanel2.setLayout(null);
 
-        numberOfWinLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        numberOfWinLabel.setForeground(new java.awt.Color(255, 255, 255));
+        goRoomButton.setBackground(new java.awt.Color(102, 102, 102));
+        goRoomButton.setFont(new java.awt.Font("FVF Fernando 08", 0, 16)); // NOI18N
+        goRoomButton.setForeground(new java.awt.Color(255, 255, 255));
+        goRoomButton.setText("Vào phòng");
+        goRoomButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        goRoomButton.setMaximumSize(new java.awt.Dimension(250, 60));
+        goRoomButton.setMinimumSize(new java.awt.Dimension(250, 60));
+        goRoomButton.setOpaque(true);
+        goRoomButton.setPreferredSize(new java.awt.Dimension(250, 60));
+        goRoomButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                goRoomButtonActionPerformed(evt);
+            }
+        });
+        jPanel2.add(goRoomButton);
+        goRoomButton.setBounds(350, 270, 250, 60);
+
+        createRoomButton.setBackground(new java.awt.Color(102, 102, 102));
+        createRoomButton.setFont(new java.awt.Font("FVF Fernando 08", 0, 16)); // NOI18N
+        createRoomButton.setForeground(new java.awt.Color(255, 255, 255));
+        createRoomButton.setText("Tạo Phòng");
+        createRoomButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        createRoomButton.setMaximumSize(new java.awt.Dimension(250, 60));
+        createRoomButton.setMinimumSize(new java.awt.Dimension(250, 60));
+        createRoomButton.setOpaque(true);
+        createRoomButton.setPreferredSize(new java.awt.Dimension(250, 60));
+        createRoomButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                createRoomButtonActionPerformed(evt);
+            }
+        });
+        jPanel2.add(createRoomButton);
+        createRoomButton.setBounds(350, 180, 250, 60);
+
+        scoreBotButton.setFont(new java.awt.Font("FVF Fernando 08", 1, 14)); // NOI18N
+        scoreBotButton.setText("Đăng xuất");
+        scoreBotButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        scoreBotButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                scoreBotButtonActionPerformed(evt);
+            }
+        });
+        jPanel2.add(scoreBotButton);
+        scoreBotButton.setBounds(450, 550, 128, 38);
+
+        friendListButton.setBackground(new java.awt.Color(102, 102, 102));
+        friendListButton.setFont(new java.awt.Font("FVF Fernando 08", 0, 16)); // NOI18N
+        friendListButton.setForeground(new java.awt.Color(255, 255, 255));
+        friendListButton.setText("Bạn bè");
+        friendListButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        friendListButton.setMaximumSize(new java.awt.Dimension(250, 60));
+        friendListButton.setMinimumSize(new java.awt.Dimension(250, 60));
+        friendListButton.setOpaque(true);
+        friendListButton.setPreferredSize(new java.awt.Dimension(250, 60));
+        friendListButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                friendListButtonActionPerformed(evt);
+            }
+        });
+        jPanel2.add(friendListButton);
+        friendListButton.setBounds(40, 360, 250, 60);
+
+        exitGameButton.setBackground(new java.awt.Color(204, 204, 204));
+        exitGameButton.setFont(new java.awt.Font("FVF Fernando 08", 1, 14)); // NOI18N
+        exitGameButton.setText("Thoát Game");
+        exitGameButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        exitGameButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exitGameButtonActionPerformed(evt);
+            }
+        });
+        jPanel2.add(exitGameButton);
+        exitGameButton.setBounds(250, 550, 160, 38);
+
+        findRoomButton.setBackground(new java.awt.Color(102, 102, 102));
+        findRoomButton.setFont(new java.awt.Font("FVF Fernando 08", 0, 16)); // NOI18N
+        findRoomButton.setForeground(new java.awt.Color(255, 255, 255));
+        findRoomButton.setText("Tìm phòng");
+        findRoomButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        findRoomButton.setMaximumSize(new java.awt.Dimension(250, 60));
+        findRoomButton.setMinimumSize(new java.awt.Dimension(250, 60));
+        findRoomButton.setOpaque(true);
+        findRoomButton.setPreferredSize(new java.awt.Dimension(250, 60));
+        findRoomButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                findRoomButtonActionPerformed(evt);
+            }
+        });
+        jPanel2.add(findRoomButton);
+        findRoomButton.setBounds(40, 270, 250, 60);
+
+        quickGameButton.setBackground(new java.awt.Color(102, 102, 102));
+        quickGameButton.setFont(new java.awt.Font("FVF Fernando 08", 0, 16)); // NOI18N
+        quickGameButton.setForeground(new java.awt.Color(255, 255, 255));
+        quickGameButton.setText("Chơi nhanh");
+        quickGameButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        quickGameButton.setMaximumSize(new java.awt.Dimension(250, 60));
+        quickGameButton.setMinimumSize(new java.awt.Dimension(250, 60));
+        quickGameButton.setOpaque(true);
+        quickGameButton.setPreferredSize(new java.awt.Dimension(250, 60));
+        quickGameButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                quickGameButtonActionPerformed(evt);
+            }
+        });
+        jPanel2.add(quickGameButton);
+        quickGameButton.setBounds(40, 180, 250, 60);
+
+        scoreBoardButton.setBackground(new java.awt.Color(102, 102, 102));
+        scoreBoardButton.setFont(new java.awt.Font("FVF Fernando 08", 0, 16)); // NOI18N
+        scoreBoardButton.setForeground(new java.awt.Color(255, 255, 255));
+        scoreBoardButton.setText("Bảng xếp hạng");
+        scoreBoardButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        scoreBoardButton.setMaximumSize(new java.awt.Dimension(250, 60));
+        scoreBoardButton.setMinimumSize(new java.awt.Dimension(250, 60));
+        scoreBoardButton.setOpaque(true);
+        scoreBoardButton.setPreferredSize(new java.awt.Dimension(250, 60));
+        scoreBoardButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                scoreBoardButtonActionPerformed(evt);
+            }
+        });
+        jPanel2.add(scoreBoardButton);
+        scoreBoardButton.setBounds(40, 450, 250, 60);
+
+        historyButton.setBackground(new java.awt.Color(102, 102, 102));
+        historyButton.setFont(new java.awt.Font("FVF Fernando 08", 0, 16)); // NOI18N
+        historyButton.setForeground(new java.awt.Color(255, 255, 255));
+        historyButton.setText("Lịch sử đấu");
+        historyButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        historyButton.setMaximumSize(new java.awt.Dimension(250, 60));
+        historyButton.setMinimumSize(new java.awt.Dimension(250, 60));
+        historyButton.setOpaque(true);
+        historyButton.setPreferredSize(new java.awt.Dimension(250, 60));
+        historyButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                historyButtonActionPerformed(evt);
+            }
+        });
+        jPanel2.add(historyButton);
+        historyButton.setBounds(350, 450, 250, 60);
+
+        listUserButton.setBackground(new java.awt.Color(102, 102, 102));
+        listUserButton.setFont(new java.awt.Font("FVF Fernando 08", 0, 16)); // NOI18N
+        listUserButton.setForeground(new java.awt.Color(255, 255, 255));
+        listUserButton.setText("Danh sách người chơi");
+        listUserButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        listUserButton.setMaximumSize(new java.awt.Dimension(250, 60));
+        listUserButton.setMinimumSize(new java.awt.Dimension(250, 60));
+        listUserButton.setOpaque(true);
+        listUserButton.setPreferredSize(new java.awt.Dimension(250, 60));
+        jPanel2.add(listUserButton);
+        listUserButton.setBounds(350, 360, 250, 60);
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel4.setFont(new java.awt.Font("FVF Fernando 08", 1, 18)); // NOI18N
+        jLabel4.setText("Input tên");
+
+        numberOfWinLabel.setFont(new java.awt.Font("FVF Fernando 08", 0, 12)); // NOI18N
         numberOfWinLabel.setText("Số trận thắng");
 
-        numberOfWinValue.setForeground(new java.awt.Color(255, 255, 255));
+        numberOfWinValue.setFont(new java.awt.Font("FVF Fernando 08", 0, 12)); // NOI18N
         numberOfWinValue.setText("{day la so van thang}");
 
-        numberOfGameValue.setForeground(new java.awt.Color(255, 255, 255));
+        numberOfGameValue.setFont(new java.awt.Font("FVF Fernando 08", 0, 12)); // NOI18N
         numberOfGameValue.setText("{day la so van da choi}");
 
-        numberOfGameLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        numberOfGameLabel.setForeground(new java.awt.Color(255, 255, 255));
+        numberOfGameLabel.setFont(new java.awt.Font("FVF Fernando 08", 0, 12)); // NOI18N
         numberOfGameLabel.setText("Số trận");
 
-        markLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        markLabel.setForeground(new java.awt.Color(255, 255, 255));
+        markLabel.setFont(new java.awt.Font("FVF Fernando 08", 0, 12)); // NOI18N
         markLabel.setText("Điểm");
 
-        markValue.setForeground(new java.awt.Color(255, 255, 255));
+        markValue.setFont(new java.awt.Font("FVF Fernando 08", 0, 12)); // NOI18N
         markValue.setText("{day la diem}");
 
-        rankLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        rankLabel.setForeground(new java.awt.Color(255, 255, 255));
+        rankLabel.setFont(new java.awt.Font("FVF Fernando 08", 0, 12)); // NOI18N
         rankLabel.setText("Xếp hạng");
 
-        rankValue.setForeground(new java.awt.Color(255, 255, 255));
+        rankValue.setFont(new java.awt.Font("FVF Fernando 08", 0, 12)); // NOI18N
         rankValue.setText("{day la thu hang}");
 
-        winRatioLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        winRatioLabel.setForeground(new java.awt.Color(255, 255, 255));
+        winRatioLabel.setFont(new java.awt.Font("FVF Fernando 08", 0, 12)); // NOI18N
         winRatioLabel.setText("Tỉ lệ thắng");
 
-        winRatioValue.setForeground(new java.awt.Color(255, 255, 255));
+        winRatioValue.setFont(new java.awt.Font("FVF Fernando 08", 0, 12)); // NOI18N
         winRatioValue.setText("{day la ti le thang}");
 
-        drawLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        drawLabel.setForeground(new java.awt.Color(255, 255, 255));
+        drawLabel.setFont(new java.awt.Font("FVF Fernando 08", 0, 12)); // NOI18N
         drawLabel.setText("Số trận hòa");
 
-        drawValue.setForeground(new java.awt.Color(255, 255, 255));
+        drawValue.setFont(new java.awt.Font("FVF Fernando 08", 0, 12)); // NOI18N
         drawValue.setText("{day la so van hoa}");
 
         jLabel8.setBackground(new java.awt.Color(204, 204, 204));
+        jLabel8.setFont(new java.awt.Font("FVF Fernando 08", 1, 14)); // NOI18N
 
-        jButton1.setBackground(new java.awt.Color(102, 102, 102));
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton1.setBackground(new java.awt.Color(0, 102, 102));
+        jButton1.setFont(new java.awt.Font("FVF Fernando 08", 0, 13)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Đổi Avatar");
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
 
-        jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(28, 28, 28))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jButton1)
-                        .addGap(73, 73, 73)))
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(47, 47, 47)
+                .addGap(16, 16, 16)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(drawLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(winRatioLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(winRatioLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(rankLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(markLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(36, 36, 36)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(markValue, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(winRatioValue, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
-                            .addComponent(drawValue, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(rankValue, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(markValue, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(winRatioValue, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
+                                .addComponent(drawValue, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(rankValue, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(numberOfWinLabel)
-                            .addComponent(numberOfGameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(numberOfWinValue, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
-                            .addComponent(numberOfGameValue, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(98, Short.MAX_VALUE))
+                            .addComponent(numberOfGameLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(numberOfWinLabel, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addGap(20, 20, 20)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(numberOfWinValue, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(numberOfGameValue, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel4)))
+                .addGap(0, 24, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 47, Short.MAX_VALUE)
-                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton1)
-                        .addGap(19, 19, 19))
-                    .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(42, 42, 42)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(numberOfGameValue)
-                    .addComponent(numberOfGameLabel, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addContainerGap()
+                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(54, 54, 54)
+                        .addComponent(jLabel4)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(numberOfGameLabel)
+                    .addComponent(numberOfGameValue))
                 .addGap(12, 12, 12)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(numberOfWinValue)
@@ -278,14 +428,19 @@ public class HomePageFrm extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rankLabel)
                     .addComponent(rankValue))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
+
+        jPanel2.add(jPanel1);
+        jPanel1.setBounds(630, 0, 270, 410);
 
         messageTextArea.setBackground(new java.awt.Color(250, 250, 250));
         messageTextArea.setColumns(20);
         messageTextArea.setRows(5);
         jScrollPane1.setViewportView(messageTextArea);
 
+        messageInput.setMinimumSize(new java.awt.Dimension(66, 22));
+        messageInput.setPreferredSize(new java.awt.Dimension(66, 22));
         messageInput.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 messageInputKeyPressed(evt);
@@ -294,232 +449,62 @@ public class HomePageFrm extends javax.swing.JFrame {
 
         sendMessageButton.setBackground(new java.awt.Color(245, 241, 241));
         sendMessageButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/sendPlane.png"))); // NOI18N
-        sendMessageButton.setText("Gửi");
+        sendMessageButton.setBorderPainted(false);
+        sendMessageButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         sendMessageButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 sendMessageButtonActionPerformed(evt);
             }
         });
 
-        jPanel2.setBackground(new java.awt.Color(102, 102, 102));
-
-        goRoomButton.setBackground(new java.awt.Color(102, 102, 102));
-        goRoomButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        goRoomButton.setForeground(new java.awt.Color(204, 204, 204));
-        goRoomButton.setText("Vào phòng");
-        goRoomButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                goRoomButtonActionPerformed(evt);
-            }
-        });
-
-        createRoomButton.setBackground(new java.awt.Color(102, 102, 102));
-        createRoomButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        createRoomButton.setForeground(new java.awt.Color(204, 204, 204));
-        createRoomButton.setText("Tạo Phòng");
-        createRoomButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                createRoomButtonActionPerformed(evt);
-            }
-        });
-
-        scoreBotButton.setText("Đăng xuất");
-        scoreBotButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                scoreBotButtonActionPerformed(evt);
-            }
-        });
-
-        friendListButton.setBackground(new java.awt.Color(102, 102, 102));
-        friendListButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        friendListButton.setForeground(new java.awt.Color(204, 204, 204));
-        friendListButton.setText("Bạn bè");
-        friendListButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                friendListButtonActionPerformed(evt);
-            }
-        });
-
-        exitGameButton.setBackground(new java.awt.Color(204, 204, 204));
-        exitGameButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        exitGameButton.setText("Thoát Game");
-        exitGameButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                exitGameButtonActionPerformed(evt);
-            }
-        });
-
-        findRoomButton.setBackground(new java.awt.Color(102, 102, 102));
-        findRoomButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        findRoomButton.setForeground(new java.awt.Color(204, 204, 204));
-        findRoomButton.setText("Tìm phòng");
-        findRoomButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                findRoomButtonActionPerformed(evt);
-            }
-        });
-
-        quickGameButton.setBackground(new java.awt.Color(102, 102, 102));
-        quickGameButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        quickGameButton.setForeground(new java.awt.Color(204, 204, 204));
-        quickGameButton.setText("Chơi nhanh");
-        quickGameButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                quickGameButtonActionPerformed(evt);
-            }
-        });
-
-        scoreBoardButton.setBackground(new java.awt.Color(102, 102, 102));
-        scoreBoardButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        scoreBoardButton.setForeground(new java.awt.Color(204, 204, 204));
-        scoreBoardButton.setText("Bảng xếp hạng");
-        scoreBoardButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                scoreBoardButtonActionPerformed(evt);
-            }
-        });
-
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(238, 238, 238));
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/logo.png"))); // NOI18N
-        jLabel2.setText("App Game");
-
-        historyButton.setBackground(new java.awt.Color(102, 102, 102));
-        historyButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        historyButton.setForeground(new java.awt.Color(204, 204, 204));
-        historyButton.setText("Lịch sử đấu");
-        historyButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                historyButtonActionPerformed(evt);
-            }
-        });
-
-        listUserButton.setBackground(new java.awt.Color(102, 102, 102));
-        listUserButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        listUserButton.setForeground(new java.awt.Color(204, 204, 204));
-        listUserButton.setText("Danh sách người chơi");
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addGap(16, 16, 16)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(quickGameButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(goRoomButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(createRoomButton, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                            .addComponent(historyButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGap(164, 164, 164)
-                            .addComponent(scoreBotButton)
-                            .addGap(29, 29, 29)))
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(listUserButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(exitGameButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(scoreBoardButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE)
-                        .addComponent(friendListButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(findRoomButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(createRoomButton, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(goRoomButton, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(quickGameButton, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(findRoomButton, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(listUserButton, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(friendListButton, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scoreBoardButton, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scoreBotButton)
-                    .addComponent(historyButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(144, 144, 144)
-                .addComponent(exitGameButton)
-                .addGap(29, 29, 29))
-        );
-
-        jPanel3.setBackground(new java.awt.Color(102, 102, 102));
-
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Input tên");
-
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/iconuser.png"))); // NOI18N
-
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(14, 14, 14))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel3Layout.createSequentialGroup()
+                    .addComponent(messageInput, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(sendMessageButton, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(14, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addContainerGap())
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(52, Short.MAX_VALUE))
+            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel3Layout.createSequentialGroup()
+                    .addGap(174, 174, 174)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(messageInput, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(sendMessageButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
+
+        jPanel2.add(jPanel3);
+        jPanel3.setBounds(630, 410, 272, 220);
+
+        jLabel3.setFont(new java.awt.Font("FVF Fernando 08", 1, 14)); // NOI18N
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/CARD GAME.png"))); // NOI18N
+        jLabel3.setMaximumSize(new java.awt.Dimension(270, 60));
+        jLabel3.setMinimumSize(new java.awt.Dimension(270, 60));
+        jLabel3.setPreferredSize(new java.awt.Dimension(270, 60));
+        jPanel2.add(jLabel3);
+        jLabel3.setBounds(0, 0, 627, 627);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(messageInput)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(sendMessageButton))
-                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1)))
+            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 897, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(46, 46, 46)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(messageInput, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(sendMessageButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
-            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -687,8 +672,7 @@ public class HomePageFrm extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JInternalFrame jInternalFrame1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLayeredPane jLayeredPane1;
@@ -696,8 +680,6 @@ public class HomePageFrm extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JButton listUserButton;
     private javax.swing.JLabel markLabel;
     private javax.swing.JLabel markValue;

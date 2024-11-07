@@ -139,12 +139,12 @@ public class AdminFrm extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(102, 102, 102));
+        jPanel1.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.default.borderColor"));
 
-        boardLabel2.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        boardLabel2.setForeground(new java.awt.Color(204, 204, 204));
+        boardLabel2.setFont(new java.awt.Font("FVF Fernando 08", 1, 36)); // NOI18N
+        boardLabel2.setForeground(new java.awt.Color(255, 255, 255));
         boardLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        boardLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/logo.png"))); // NOI18N
+        boardLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/cardlogo.png"))); // NOI18N
         boardLabel2.setText("Admin");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -153,8 +153,8 @@ public class AdminFrm extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(boardLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 758, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(boardLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -166,8 +166,10 @@ public class AdminFrm extends javax.swing.JFrame {
 
         jTabbedPane1.setTabPlacement(javax.swing.JTabbedPane.LEFT);
 
-        uploadButton.setBackground(new java.awt.Color(102, 102, 102));
-        uploadButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jPanel2.setFont(new java.awt.Font("FVF Fernando 08", 0, 12)); // NOI18N
+
+        uploadButton.setBackground(new java.awt.Color(0, 102, 102));
+        uploadButton.setFont(new java.awt.Font("FVF Fernando 08", 0, 14)); // NOI18N
         uploadButton.setForeground(new java.awt.Color(255, 255, 255));
         uploadButton.setText("Thêm");
         uploadButton.addActionListener(new java.awt.event.ActionListener() {
@@ -186,7 +188,7 @@ public class AdminFrm extends javax.swing.JFrame {
         );
         pikachuPanelLayout.setVerticalGroup(
             pikachuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 445, Short.MAX_VALUE)
+            .addGap(0, 439, Short.MAX_VALUE)
         );
 
         jLabel1.setForeground(new java.awt.Color(255, 51, 51));
@@ -219,6 +221,8 @@ public class AdminFrm extends javax.swing.JFrame {
         );
 
         jTabbedPane1.addTab("Quản lý Pikachu", jPanel2);
+
+        jPanel3.setFont(new java.awt.Font("FVF Fernando 08", 0, 12)); // NOI18N
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);

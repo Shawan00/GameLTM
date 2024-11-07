@@ -57,18 +57,18 @@ public class FriendRequestFrm extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        requestTitleLabel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        requestTitleLabel.setFont(new java.awt.Font("FVF Fernando 08", 0, 18)); // NOI18N
         requestTitleLabel.setForeground(new java.awt.Color(102, 102, 102));
         requestTitleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         requestTitleLabel.setText("Bạn nhận được một lời mời kết bạn ");
 
-        requestFromLabel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        requestFromLabel.setFont(new java.awt.Font("FVF Fernando 08", 0, 18)); // NOI18N
         requestFromLabel.setForeground(new java.awt.Color(102, 102, 102));
         requestFromLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         requestFromLabel.setText("Từ");
 
-        acceptButton.setBackground(new java.awt.Color(102, 102, 102));
-        acceptButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        acceptButton.setBackground(new java.awt.Color(0, 102, 102));
+        acceptButton.setFont(new java.awt.Font("FVF Fernando 08", 1, 12)); // NOI18N
         acceptButton.setForeground(new java.awt.Color(255, 255, 255));
         acceptButton.setText("Đồng ý");
         acceptButton.addActionListener(new java.awt.event.ActionListener() {
@@ -77,7 +77,9 @@ public class FriendRequestFrm extends javax.swing.JFrame {
             }
         });
 
-        declineButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        declineButton.setBackground(new java.awt.Color(153, 153, 153));
+        declineButton.setFont(new java.awt.Font("FVF Fernando 08", 1, 12)); // NOI18N
+        declineButton.setForeground(new java.awt.Color(255, 255, 255));
         declineButton.setText("Từ chối");
         declineButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -85,6 +87,7 @@ public class FriendRequestFrm extends javax.swing.JFrame {
             }
         });
 
+        autoCloseLabel.setFont(new java.awt.Font("FVF Fernando 08", 0, 12)); // NOI18N
         autoCloseLabel.setText("Tự động đóng sau ");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -93,17 +96,17 @@ public class FriendRequestFrm extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(186, 186, 186)
-                .addComponent(autoCloseLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE))
+                .addComponent(autoCloseLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(69, 69, 69)
+                .addGap(84, 84, 84)
                 .addComponent(acceptButton, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(declineButton, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(64, 64, 64))
+                .addGap(75, 75, 75))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(requestTitleLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(requestTitleLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 469, Short.MAX_VALUE)
                     .addComponent(requestFromLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
@@ -123,7 +126,7 @@ public class FriendRequestFrm extends javax.swing.JFrame {
                             .addComponent(declineButton))
                         .addGap(20, 20, 20)))
                 .addComponent(autoCloseLabel)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         pack();
