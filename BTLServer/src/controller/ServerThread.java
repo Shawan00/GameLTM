@@ -88,54 +88,37 @@ public class ServerThread implements Runnable {
                 user1.getNumberOfWin() + "," + user1.getNumberOfDraw() + "," + user1.getRank();
     }
 
-    public void goToOwnRoom() throws IOException {
-        String matrix = "";
-        for(int i = 0 ; i < 7;i++){
-            for(int j = 0; j < 7;j++){
-                matrix+=(","+room.getMatrix()[i][j]);
-            }
-        }
-        
-        List<Pikachu> listPikachu = new ArrayList<>();
-        listPikachu = pikachuDao.getListPikachu();
-        String pikachuStr = "";
-        for(Pikachu pikachu: listPikachu){
-            pikachuStr = pikachuStr+","+pikachu.getAvatar();
-        }
-        
+    public void goToOwnRoom() throws IOException { 
+        System.out.println(getCard());
         write("go-to-room," + 
                 room.getId() + "," +
                 room.getCompetitor(this.getClientNumber()).getClientIP() + "," + 
                 getStringFromUser(room.getCompetitor(this.getClientNumber()).getUser())+
-                matrix+pikachuStr);
+                getCard());
         room.getCompetitor(this.clientNumber).write("go-to-room," + 
                 room.getId() + "," + 
                 this.clientIP + "," + 
                 getStringFromUser(user)+
-                matrix+pikachuStr);
+                getCard());
     }
 
     public void goToPartnerRoom() throws IOException {
-        String matrix = "";
-        for(int i = 0 ; i < 7;i++){
-            for(int j = 0; j < 7;j++){
-                matrix+=(","+room.getMatrix()[i][j]);
-            }
-        }
-        List<Pikachu> listPikachu = new ArrayList<>();
-        listPikachu = pikachuDao.getListPikachu();
-        String pikachuStr = "";
-        for(Pikachu pikachu: listPikachu){
-            pikachuStr = pikachuStr+","+pikachu.getAvatar();
-        }
+        System.out.println(getCard());
         String mess1 = "go-to-room," + room.getId() + "," 
                 + room.getCompetitor(this.clientNumber).getClientIP() + "," 
                 + getStringFromUser(room.getCompetitor(this.clientNumber).getUser())
-                +matrix+pikachuStr;
+                +getCard();
         write(mess1);
         String mess2 = "go-to-room," + room.getId() + "," 
-                + this.clientIP + "," + getStringFromUser(user)+matrix+pikachuStr;
+                + this.clientIP + "," + getStringFromUser(user)+getCard();
         room.getCompetitor(this.clientNumber).write(mess2);
+        
+    }
+    
+    public String getCard(){
+        String listCardStr = "";
+        for(int i = 0 ; i < 16; i++) listCardStr+=(","+this.room.getListCard().get(i));
+        return listCardStr;
     }
 
     @Override
@@ -240,7 +223,13 @@ public class ServerThread implements Runnable {
                 //Xử lý khi update avatar
                 if(messageSplit[0].equals("updateAvatar")){
                     userDAO.updateAvatar(this.user.getID(), messageSplit[1]);
-                }
+                    if(room!=null){
+                        if(room.getUser1().getUser().getID()==user.getID())
+                            room.getUser1().getUser().setAvatar(messageSplit[1]);
+                        else if(room.getUser2().getUser().getID()==user.getID())
+                            room.getUser2().getUser().setAvatar(messageSplit[1]);
+                        }
+                    }
                 
                
                 //Xử lý chat toàn server
@@ -355,69 +344,17 @@ public class ServerThread implements Runnable {
                     }
                 }
                 if (messageSplit[0].equals("Client-send-score")){
-                    int clientNumberUser1 = this.room.getUser1().getClientNumber();
-                    int clientNumberUser2 = this.room.getUser2().getClientNumber();
-                    if(clientNumberUser1==this.clientNumber) 
-                        this.room.setScoreUser1(Integer.parseInt(messageSplit[1]));
-                    else this.room.setScoreUser2(Integer.parseInt(messageSplit[1]));
-                    
-                    int scoreUser1 = this.room.getScoreUser1();
-                    int scoreUser2 = this.room.getScoreUser2();
-                    if(scoreUser1!=-1 && scoreUser2!=-1 && this.room.isSendResult()==false){
-                        userDAO.addGame(this.room.getUser1().getUser().getID());
-                        userDAO.addGame(this.room.getUser2().getUser().getID());
-                        this.room.setSendResult(true);
-                        if(scoreUser1 > scoreUser2){
-                            userDAO.addWinGame(this.room.getUser1().getUser().getID());
-                            for (ServerThread serverThread : ServerMain.serverThreadBus.getListServerThreads()){
-                                if(serverThread.getClientNumber()==clientNumberUser1) 
-                                    handleResult(serverThread,"win", 
-                                            this.room.getUser2().getUser().getAvatar(), 
-                                            this.room.getUser2().getUser().getNickname(), 
-                                            scoreUser1, scoreUser2,this.room.getUser1().getUser(),this.room.getUser2().getUser());
-                                if(serverThread.getClientNumber()==clientNumberUser2) 
-                                    handleResult(serverThread,"lose", 
-                                            this.room.getUser1().getUser().getAvatar(), 
-                                            this.room.getUser1().getUser().getNickname(), 
-                                            scoreUser2, scoreUser1,this.room.getUser2().getUser(),this.room.getUser1().getUser());
-                            }
-                        }
-                        else if(scoreUser1 < scoreUser2){
-                            userDAO.addWinGame(this.room.getUser2().getUser().getID());
-                            for (ServerThread serverThread : ServerMain.serverThreadBus.getListServerThreads()){
-                                if(serverThread.getClientNumber()==clientNumberUser1)
-                                    handleResult(serverThread,"lose", 
-                                            this.room.getUser2().getUser().getAvatar(), 
-                                            this.room.getUser2().getUser().getNickname(), 
-                                            scoreUser1, scoreUser2,this.room.getUser1().getUser(),this.room.getUser2().getUser());
-                                   
-                                if(serverThread.getClientNumber()==clientNumberUser2)
-                                    handleResult(serverThread,"win", 
-                                            this.room.getUser1().getUser().getAvatar(), 
-                                            this.room.getUser1().getUser().getNickname(), 
-                                            scoreUser2, scoreUser1,this.room.getUser2().getUser(),this.room.getUser1().getUser());
-                            }
-                        }
-                        else{
-                            userDAO.addDrawGame(this.room.getUser1().getUser().getID());
-                            userDAO.addDrawGame(this.room.getUser2().getUser().getID());
-                            for (ServerThread serverThread : ServerMain.serverThreadBus.getListServerThreads()){
-                                if(serverThread.getClientNumber()==clientNumberUser1)
-                                    handleResult(serverThread,"draw", 
-                                            this.room.getUser2().getUser().getAvatar(), 
-                                            this.room.getUser2().getUser().getNickname(), 
-                                            scoreUser1, scoreUser2, this.room.getUser1().getUser(),this.room.getUser2().getUser());
-           
-                                if(serverThread.getClientNumber()==clientNumberUser2)
-                                    handleResult(serverThread,"draw", 
-                                            this.room.getUser1().getUser().getAvatar(), 
-                                            this.room.getUser1().getUser().getNickname(), 
-                                            scoreUser2, scoreUser1, this.room.getUser2().getUser(),this.room.getUser1().getUser());
-      
-                            }
-                        }
-                    }
+                    handleScoreRecieve(messageSplit);
                 }
+                //Xử lý khi client gửi bài được pick
+                if (messageSplit[0].equals("client-send-card-selected")) {
+                    if(user.getID()==this.room.getUser1().getUser().getID()) 
+                        this.room.setCardSelectedN1(this.room.getCardSelectedN1()+1);
+                    else
+                        this.room.setCardSelectedN2(this.room.getCardSelectedN2()+1);
+                    this.room.getCompetitor(clientNumber).write("selected-card-of-competitor,"+messageSplit[1]);
+                    
+                }        
                 //Xử lý không tìm được phòng
                 if (messageSplit[0].equals("cancel-room")) {
                     userDAO.updateToNotPlaying(this.user.getID());
@@ -474,12 +411,7 @@ public class ServerThread implements Runnable {
                 if (messageSplit[0].equals("chat")) {
                     room.getCompetitor(clientNumber).write(message);
                 }
-                if (messageSplit[0].equals("win")) {
-                    userDAO.addWinGame(this.user.getID());
-                    room.increaseNumberOfGame();
-                    room.getCompetitor(clientNumber).write("caro," + messageSplit[1] + "," + messageSplit[2]);
-                    room.boardCast("new-game,");
-                }
+                
                 
                 if (messageSplit[0].equals("left-room")) {
                     if (room != null) {
@@ -518,6 +450,70 @@ public class ServerThread implements Runnable {
                 }
             }
 
+        }
+    }
+    
+    public void handleScoreRecieve(String[]messageSplit){
+        int clientNumberUser1 = this.room.getUser1().getClientNumber();
+        int clientNumberUser2 = this.room.getUser2().getClientNumber();
+        if(clientNumberUser1==this.clientNumber) 
+            this.room.setScoreUser1(Integer.parseInt(messageSplit[1]));
+        else this.room.setScoreUser2(Integer.parseInt(messageSplit[1]));
+
+        int scoreUser1 = this.room.getScoreUser1();
+        int scoreUser2 = this.room.getScoreUser2();
+        if(scoreUser1!=-1 && scoreUser2!=-1 && this.room.isSendResult()==false){
+
+            this.room.setSendResult(true);
+            if(scoreUser1 > scoreUser2){
+                userDAO.addWinGame(this.room.getUser1().getUser().getID());
+                for (ServerThread serverThread : ServerMain.serverThreadBus.getListServerThreads()){
+                    if(serverThread.getClientNumber()==clientNumberUser1) 
+                        handleResult(serverThread,"win", 
+                                this.room.getUser2().getUser().getAvatar(), 
+                                this.room.getUser2().getUser().getNickname(), 
+                                scoreUser1, scoreUser2,this.room.getUser1().getUser(),this.room.getUser2().getUser());
+                    if(serverThread.getClientNumber()==clientNumberUser2) 
+                        handleResult(serverThread,"lose", 
+                                this.room.getUser1().getUser().getAvatar(), 
+                                this.room.getUser1().getUser().getNickname(), 
+                                scoreUser2, scoreUser1,this.room.getUser2().getUser(),this.room.getUser1().getUser());
+                }
+            }
+            else if(scoreUser1 < scoreUser2){
+                userDAO.addWinGame(this.room.getUser2().getUser().getID());
+                for (ServerThread serverThread : ServerMain.serverThreadBus.getListServerThreads()){
+                    if(serverThread.getClientNumber()==clientNumberUser1)
+                        handleResult(serverThread,"lose", 
+                                this.room.getUser2().getUser().getAvatar(), 
+                                this.room.getUser2().getUser().getNickname(), 
+                                scoreUser1, scoreUser2,this.room.getUser1().getUser(),this.room.getUser2().getUser());
+
+                    if(serverThread.getClientNumber()==clientNumberUser2)
+                        handleResult(serverThread,"win", 
+                                this.room.getUser1().getUser().getAvatar(), 
+                                this.room.getUser1().getUser().getNickname(), 
+                                scoreUser2, scoreUser1,this.room.getUser2().getUser(),this.room.getUser1().getUser());
+                }
+            }
+            else{
+                userDAO.addDrawGame(this.room.getUser1().getUser().getID());
+                userDAO.addDrawGame(this.room.getUser2().getUser().getID());
+                for (ServerThread serverThread : ServerMain.serverThreadBus.getListServerThreads()){
+                    if(serverThread.getClientNumber()==clientNumberUser1)
+                        handleResult(serverThread,"draw", 
+                                this.room.getUser2().getUser().getAvatar(), 
+                                this.room.getUser2().getUser().getNickname(), 
+                                scoreUser1, scoreUser2, this.room.getUser1().getUser(),this.room.getUser2().getUser());
+
+                    if(serverThread.getClientNumber()==clientNumberUser2)
+                        handleResult(serverThread,"draw", 
+                                this.room.getUser1().getUser().getAvatar(), 
+                                this.room.getUser1().getUser().getNickname(), 
+                                scoreUser2, scoreUser1, this.room.getUser2().getUser(),this.room.getUser1().getUser());
+
+                }
+            }
         }
     }
     public void handleResult(ServerThread serverThread, String result, String avatarCompetitor, String nameCompetitor, int score1, int score2, User user1, User user2){

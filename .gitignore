@@ -1,2 +1,6 @@
 /BTLClient/build/
 /BTLClient/nbproject/private/
+/BTLServer/build/
+/BTLServer/nbproject/private/
+/BTLClient/dist/
+/BTLServer/dist/

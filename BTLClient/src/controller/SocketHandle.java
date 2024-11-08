@@ -66,24 +66,10 @@ public class SocketHandle implements Runnable {
                 Integer.parseInt(message[start + 8]));
     }
     
-    public int[][] getMatrix(int start, String[] message){
-        int[][] matrix = new int[7][7];
-        int cnt = 0;
-        for(int i = 0; i < 7;i++){
-            for(int j = 0; j < 7; j++){
-                matrix[i][j] = Integer.parseInt(message[start+cnt]);
-                cnt++;
-            }
-        }
-        return matrix;
-    }
-    
-    public String getPikachuStr(int start, String[] message){
-        String result = message[start]+"";
-        for(int i = start+1; i < message.length;i++){
-            result = result + ","+message[i];
-        }
-        return result;
+    public List<String> getListCard(int start, String[] message){
+        List<String> listCard = new ArrayList<>();
+        for(int i = start; i< message.length;i++) listCard.add(message[i]);
+        return listCard;   
     }
 
     @Override
@@ -199,6 +185,8 @@ public class SocketHandle implements Runnable {
                     String nameCompetitor = messageSplit[3];
                     int myScore = Integer.parseInt(messageSplit[4]);
                     int competitorScore = Integer.parseInt(messageSplit[5]);
+                    Thread.sleep(3000);
+                    Client.closeAllViews();
                     Client.openView(Client.View.RESULT_NOTIFICATION_FRM,result, avatarCompetitor, nameCompetitor,myScore,competitorScore);
                 }
                 
@@ -227,11 +215,13 @@ public class SocketHandle implements Runnable {
                     }
                 }
                 
-//                if(messageSplit[0].equals("return-play-list")){
-//                    if(Client.adminFrm!=null){
-//                        Client.adminFrm.setDataToTable(getListPlay(messageSplit));
-//                    }
-//                }
+                //Xử lý khi server trả về bài mà đối thủ đã chọn
+                if (messageSplit[0].equals("selected-card-of-competitor")) {
+                    System.out.println("111111");
+                    Client.gameClientFrm.updateAfterCompetitorSelect(messageSplit[1]);
+                }
+                
+                
                 //Xử lý lấy danh sách phòng
                 if (messageSplit[0].equals("room-list")) {
                     Vector<String> rooms = new Vector<>();
@@ -248,11 +238,11 @@ public class SocketHandle implements Runnable {
                     }
                 }
                 if (messageSplit[0].equals("go-to-room")) {
+                    System.out.println(message);
                     int roomID = Integer.parseInt(messageSplit[1]);
                     String competitorIP = messageSplit[2];
                     User competitor = getUserFromString(3, messageSplit);
-                    int[][]matrix = getMatrix(12,messageSplit);
-                    String pikachuStr = getPikachuStr(61, messageSplit);
+                    List<String> listCard = getListCard(12, messageSplit);
                     if (Client.findRoomFrm != null) {
                         Client.findRoomFrm.showFoundRoom();
                         try {
@@ -275,8 +265,7 @@ public class SocketHandle implements Runnable {
                             ,competitor
                             ,roomID
                             ,competitorIP
-                            ,matrix
-                            ,pikachuStr);
+                            ,listCard);
                 }
                 //Tạo phòng và server trả về tên phòng
                 if (messageSplit[0].equals("your-created-room")) {

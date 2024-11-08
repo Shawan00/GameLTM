@@ -129,9 +129,9 @@ public class Client {
     
     
 
-    public static void openView(View viewName, User competitor, int room_ID, String competitorIP, int [][]matrix, String pikachuStr) throws IOException {
+    public static void openView(View viewName, User competitor, int room_ID, String competitorIP, List<String>listCard) throws IOException {
         if (viewName == View.GAME_CLIENT) {
-            gameClientFrm = new GameClientFrm(competitor, room_ID, competitorIP, matrix, pikachuStr);
+            gameClientFrm = new GameClientFrm(competitor, room_ID, competitorIP, listCard);
             gameClientFrm.setVisible(true);
         }
     }

@@ -24,7 +24,7 @@ public class PikachuDao extends connectToDatabase {
     public void addPikachu(String avatarUrl){
         try {
             PreparedStatement preparedStatement = con.prepareStatement(
-                    "INSERT INTO `btl2`.`pikachu` (`avatar`) VALUES (?);");
+                    "INSERT INTO `btlviet`.`pikachu` (`avatar`) VALUES (?);");
             preparedStatement.setString(1, avatarUrl);
             preparedStatement.executeUpdate();
         } catch (SQLException ex) {
@@ -35,7 +35,7 @@ public class PikachuDao extends connectToDatabase {
     public void deletedPikachu(int id){
         try {
             PreparedStatement preparedStatement = con.prepareStatement(
-                    "DELETE FROM `btl2`.`pikachu` WHERE (`id` = ?);");
+                    "DELETE FROM `btlviet`.`pikachu` WHERE (`id` = ?);");
             preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
         } catch (SQLException ex) {

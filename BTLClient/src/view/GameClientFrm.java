@@ -4,6 +4,7 @@ import controller.Client;
 import java.awt.BasicStroke;
 
 import java.awt.Color;
+import java.awt.ComponentOrientation;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -15,33 +16,34 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.Timer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import javax.imageio.ImageIO;
 import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
 import model.User;
 
 public class GameClientFrm extends javax.swing.JFrame {
-    private int SIZE = 7;
-    private JButton[][] buttons = new JButton[7][7];
-    private int[][] values = new int[7][7];
-    private JButton firstButton = null;
-    private JButton secondButton = null;
-    private LinePanel linePanel = new LinePanel();
+    private JButton[] buttons = new JButton[16];
+    private List<String> listCard;
+    private JButton buttonClick = null;
     
     private final User competitor;
 
@@ -53,29 +55,24 @@ public class GameClientFrm extends javax.swing.JFrame {
 
     private final boolean isSending;
     private final boolean isListening;
-    private final String competitorIP;
-    private List<String>listPikachu;
-    
+    private final String competitorIP;    
     private int score;
-
-    public GameClientFrm(User competitor, int room_ID, String competitorIP, int[][]matrix, String pikachuStr) throws MalformedURLException, IOException {
+    
+    private int selectCard;
+    
+    public GameClientFrm(User competitor, int room_ID, String competitorIP, List<String> listCard) throws MalformedURLException, IOException {
         initComponents();
-        this.listPikachu = new ArrayList<>();
-        for(String pikachu: pikachuStr.split(",")){
-            listPikachu.add(pikachu);
-        }
-        Collections.shuffle(listPikachu);
+        this.listCard = listCard;
         this.competitor = competitor;
         this.competitorIP = competitorIP;
-        values = matrix;
+        this.selectCard = 0;
+
         initializeGameBoard();
         
-        for(int x = 0; x < 7;x++){
-            for(int y = 0; y < 7;y++){
-                System.out.print(this.values[x][y]+" ");
-            }       
-            System.out.println("");
-        }
+        mypanel.setLayout(new GridLayout(0,3,10,10));
+        competitorPanel.setLayout(new GridLayout(0,3,10,10));
+        competitorPanel.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+        
         
         isSending = false;
         isListening = false;
@@ -132,7 +129,7 @@ public class GameClientFrm extends javax.swing.JFrame {
         
         
         //Setup timer
-        second = 10;
+        second = 0;
         minute = 0;
         timer = new Timer(1000, new ActionListener() {
             @Override
@@ -147,22 +144,29 @@ public class GameClientFrm extends javax.swing.JFrame {
                 }
                 if (second == 0) {
                     countDownLabel.setText("Thời Gian:" + temp + ":" + temp1);
-                    second = 10;
+                    second = 0;
                     minute = 0;
-                    try {
-                        jLayeredPane.setEnabled(false);
-                        Client.socketHandle.write("Client-send-score,"+score);
-                        System.out.println(score);
-                        stopTimer();
-                        
-                    } catch (IOException ex) {
-                        JOptionPane.showMessageDialog(rootPane, ex.getMessage());
-                    
+
+                    while(selectCard<3){
+                        ClickRandom();
                     }
+
+                    jLayeredPane.setEnabled(false);
+                    
 
                 } else {
                     countDownLabel.setText("Thời Gian:" + temp + ":" + temp1);
                     second--;
+                    if(selectCard == 3){
+                        jLayeredPane.setEnabled(false);
+                        try {
+                            Client.socketHandle.write("Client-send-score,"+score);
+                        } catch (IOException ex) {
+                            Logger.getLogger(GameClientFrm.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        System.out.println(score);
+                        stopTimer();
+                    }
                 }
 
             }
@@ -183,37 +187,46 @@ public class GameClientFrm extends javax.swing.JFrame {
 
     }
     
-
-
-    private void initializeGameBoard() throws IOException {
-        jLayeredPane.setPreferredSize(new Dimension(500, 500));
-
-        JPanel gridPanel = new JPanel(new GridLayout(SIZE, SIZE));
-        gridPanel.setBounds(0, 0, 500, 500);
-        gridPanel.setOpaque(false);
-
-        for (int i = 0; i < SIZE; i++) {
-            for (int j = 0; j < SIZE; j++) {
-                JButton button = new JButton(String.valueOf(values[i][j]));
-                URL url = new URL(this.listPikachu.get(values[i][j]));
-                Image image = ImageIO.read(url);
-                if (image != null) {
-                    Image scaledImage = image.getScaledInstance(72, 65, Image.SCALE_SMOOTH);
-                    ImageIcon icon = new ImageIcon(scaledImage);
-                    button.setIcon(icon);
-                } else {
-                    System.out.println("Ảnh không tải được từ URL");
-                }
-                
-                button.addActionListener(new ButtonClickListener(i, j));
-                buttons[i][j] = button;
-                gridPanel.add(button);
+    private void ClickRandom(){
+        List<JButton> visibleButtons = new ArrayList<>();
+        for (JButton button : buttons) {
+            if (button.isVisible()) {
+                visibleButtons.add(button);
             }
         }
+
+        if (!visibleButtons.isEmpty()) {
+            Random random = new Random();
+            int randomIndex = random.nextInt(visibleButtons.size()); 
+            JButton randomVisibleCard = visibleButtons.get(randomIndex);
+            randomVisibleCard.doClick(); 
+        }
+    }
+
+    private void initializeGameBoard() throws IOException {
+        jLayeredPane.setPreferredSize(new Dimension(720, 240));
+        JPanel gridPanel = new JPanel(new GridLayout(2, 8));
+        gridPanel.setBounds(0, 0, 960, 360);
+        gridPanel.setOpaque(false);
         jLayeredPane.add(gridPanel, JLayeredPane.DEFAULT_LAYER);
-        linePanel.setBounds(0, 0, 500, 500);
-        linePanel.setOpaque(false);
-        jLayeredPane.add(linePanel, JLayeredPane.PALETTE_LAYER);
+        for(int i = 0 ; i < listCard.size();i++){
+            JButton button = new JButton();
+            button.putClientProperty("value", String.valueOf(listCard.get(i)));
+            File file = new File("assets/Card/"+"sub.png");
+            Image image = ImageIO.read(file);
+            if (image != null) {
+                Image scaledImage = image.getScaledInstance(120,180, Image.SCALE_SMOOTH);
+                ImageIcon icon = new ImageIcon(scaledImage);
+                button.setIcon(icon);
+            } else {
+                System.out.println("Ảnh không tải được từ file");
+            }
+            button.addActionListener(new ButtonClickListener(i));
+            buttons[i] = button;
+            gridPanel.add(button);
+        }
+        
+        
     }
 
     public void exitGame() throws IOException {
@@ -272,6 +285,8 @@ public class GameClientFrm extends javax.swing.JFrame {
         sendButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         textScore = new javax.swing.JTextField();
+        mypanel = new javax.swing.JPanel();
+        competitorPanel = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         mainMenu = new javax.swing.JMenu();
         newGameMenuItem = new javax.swing.JMenuItem();
@@ -350,11 +365,11 @@ public class GameClientFrm extends javax.swing.JFrame {
         jLayeredPane.setLayout(jLayeredPaneLayout);
         jLayeredPaneLayout.setHorizontalGroup(
             jLayeredPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 500, Short.MAX_VALUE)
+            .addGap(0, 960, Short.MAX_VALUE)
         );
         jLayeredPaneLayout.setVerticalGroup(
             jLayeredPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 500, Short.MAX_VALUE)
+            .addGap(0, 360, Short.MAX_VALUE)
         );
 
         countDownLabel.setForeground(new java.awt.Color(255, 0, 0));
@@ -560,6 +575,32 @@ public class GameClientFrm extends javax.swing.JFrame {
 
         textScore.setText("0");
 
+        mypanel.setPreferredSize(new java.awt.Dimension(320, 150));
+
+        javax.swing.GroupLayout mypanelLayout = new javax.swing.GroupLayout(mypanel);
+        mypanel.setLayout(mypanelLayout);
+        mypanelLayout.setHorizontalGroup(
+            mypanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 320, Short.MAX_VALUE)
+        );
+        mypanelLayout.setVerticalGroup(
+            mypanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 150, Short.MAX_VALUE)
+        );
+
+        competitorPanel.setPreferredSize(new java.awt.Dimension(320, 150));
+
+        javax.swing.GroupLayout competitorPanelLayout = new javax.swing.GroupLayout(competitorPanel);
+        competitorPanel.setLayout(competitorPanelLayout);
+        competitorPanelLayout.setHorizontalGroup(
+            competitorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 320, Short.MAX_VALUE)
+        );
+        competitorPanelLayout.setVerticalGroup(
+            competitorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 150, Short.MAX_VALUE)
+        );
+
         mainMenu.setText("Menu");
         mainMenu.setToolTipText("");
 
@@ -594,37 +635,43 @@ public class GameClientFrm extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(108, 108, 108)
-                                .addComponent(countDownLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(97, 97, 97)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(textScore, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(43, 43, 43)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(messageTextField)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(sendButton, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(96, 96, 96)
                         .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(175, 175, 175)
+                .addComponent(jLayeredPane, javax.swing.GroupLayout.PREFERRED_SIZE, 960, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(132, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLayeredPane, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(151, 151, 151))
+                .addComponent(competitorPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31)
+                .addComponent(mypanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(textScore, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(53, 53, 53))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(countDownLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(62, 62, 62)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(messageTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(sendButton, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(16, 16, 16))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -634,26 +681,34 @@ public class GameClientFrm extends javax.swing.JFrame {
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(53, 53, 53)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(textScore, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(countDownLabel)
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(27, 27, 27)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(messageTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(sendButton, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLayeredPane, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(sendButton, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(messageTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(61, 61, 61))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(mypanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                .addComponent(textScore, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(jLabel1))
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(countDownLabel))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                        .addComponent(jLayeredPane, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(competitorPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(24, 24, 24)))
                 .addComponent(jLabel7)
-                .addContainerGap())
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         jLayeredPane.getAccessibleContext().setAccessibleDescription("");
@@ -731,12 +786,9 @@ public class GameClientFrm extends javax.swing.JFrame {
         return 0;
     }
 
-    
-
-
     public void startTimer() {
         countDownLabel.setVisible(true);
-        second = 10;
+        second = 30;
         minute = 0;
         timer.start();
     }
@@ -749,12 +801,7 @@ public class GameClientFrm extends javax.swing.JFrame {
     }
 
 
-    public void displayDrawGame() {
-        String tmp = messageTextArea.getText();
-        tmp += "--Ván chơi hòa--\n";
-        messageTextArea.setText(tmp);
-        messageTextArea.setCaretPosition(messageTextArea.getDocument().getLength());
-    }
+    
   
     private int getMax(byte[] bytes) {
         int max = bytes[0];
@@ -771,178 +818,75 @@ public class GameClientFrm extends javax.swing.JFrame {
         playerNumberOfGameValue.setText(Integer.toString(Client.user.getNumberOfGame()));
     }
     
-    private class ButtonClickListener implements ActionListener {
-        private int row;
-        private int col;
+    public void updateAfterCompetitorSelect(String card) throws IOException{
+        for(int i = 0 ; i < buttons.length;i++)
+            if(buttons[i].getClientProperty("value").equals(card))
+                buttons[i].setVisible(false);
+        
+        File file = new File("assets/Card/"+card+".png");
+        Image image = ImageIO.read(file);
+        JLabel label = null;
+        if (image != null) {
+            Image scaledImage = image.getScaledInstance(100,150, Image.SCALE_SMOOTH);
+            ImageIcon icon = new ImageIcon(scaledImage);
 
-        public ButtonClickListener(int row, int col) {
-            this.row = row;
-            this.col = col;
+            label = new JLabel(icon);
+            label.setHorizontalAlignment(SwingConstants.CENTER);  
+
+        } else {
+            System.out.println("Ảnh không tải được từ file");
+        }
+        competitorPanel.add(label);
+        
+    }
+    
+    private class ButtonClickListener implements ActionListener {
+        private int position;
+
+        public ButtonClickListener(int i) {
+            this.position = i;
         }
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            JButton clickedButton = buttons[row][col];
+            if(selectCard <=2){
+                try {            
+                    selectCard++;
+                    JButton clickedButton = buttons[position];
+                    String value = clickedButton.getClientProperty("value")+"";
+                    Client.socketHandle.write("client-send-card-selected,"+value);
+                    buttons[position].setVisible(false);
 
-            if (firstButton == null) {
-                firstButton = clickedButton;
-            } else if (secondButton == null && clickedButton != firstButton) {
-                secondButton = clickedButton;
-                checkAndRemove();
-            }
-        }
+                    File file = new File("assets/Card/"+value+".png");
+                    Image image = ImageIO.read(file);
+                    JLabel label = null;
+                    if (image != null) {
+                        Image scaledImage = image.getScaledInstance(100,150, Image.SCALE_SMOOTH);
+                        ImageIcon icon = new ImageIcon(scaledImage);
 
-        private void checkAndRemove() {
-            if (firstButton != null && secondButton != null && firstButton.getText().equals(secondButton.getText())) {
-                int row1 = getButtonRow(firstButton);
-                int col1 = getButtonCol(firstButton);
-                int row2 = getButtonRow(secondButton);
-                int col2 = getButtonCol(secondButton);
+                        label = new JLabel(icon);
+                        label.setHorizontalAlignment(SwingConstants.CENTER);  
 
-                if (isValidPath(row1, col1, row2, col2)) {
-                    linePanel.drawLineBetweenButtons(firstButton, secondButton);
+                    } else {
+                        System.out.println("Ảnh không tải được từ file");
+                    }
+                    mypanel.add(label);
 
-                    Timer timer = new Timer(500, new ActionListener() {
-                        public void actionPerformed(ActionEvent evt) {
-                            linePanel.clearLine();
-                        }
-                    });
-                    timer.setRepeats(false);
-                    timer.start();
-                    
-                    firstButton.setVisible(false);
-                    secondButton.setVisible(false);
-                    score++;
+                    score+=Integer.parseInt(value.toCharArray()[0]+"");
+                    score%=10;
                     textScore.setText(score+"");
+                } catch (IOException ex) {
+                    Logger.getLogger(GameClientFrm.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-            firstButton = null;
-            secondButton = null;
-        }
-
-        private int getButtonRow(JButton button) {
-            for (int i = 0; i < SIZE; i++) {
-                for (int j = 0; j < SIZE; j++) {
-                    if (buttons[i][j] == button) return i;
-                }
-            }
-            return -1;
-        }
-
-        private int getButtonCol(JButton button) {
-            for (int i = 0; i < SIZE; i++) {
-                for (int j = 0; j < SIZE; j++) {
-                    if (buttons[i][j] == button) return j;
-                }
-            }
-            return -1;
-        }
-
-        private boolean isValidPath(int row1, int col1, int row2, int col2) {
-            return isStraightPathClear(row1, col1, row2, col2) ||
-                   isOneCornerPathClear(row1, col1, row2, col2) ||
-                   isTwoCornerPathClear(row1, col1, row2, col2)||
-                   isOutPathClear(row1, col1, row2, col2);
             
-        }     
-        private boolean isStraightPathClear(int row1, int col1, int row2, int col2) {
-            if (row1 == row2) { 
-                for (int col = Math.min(col1, col2) + 1; col < Math.max(col1, col2); col++) {
-                    if (buttons[row1][col].isVisible()) return false;
-                }
-                return true;
-            } else if (col1 == col2) {
-                for (int row = Math.min(row1, row2) + 1; row < Math.max(row1, row2); row++) {
-                    if (buttons[row][col1].isVisible()) return false;
-                }
-                return true;
-            }
-            else if( col1==row1 && col2==row2 && row1==col2) return true;
-            return false;
-        }
         
-        private boolean isOneCornerPathClear(int row1, int col1, int row2, int col2) {
-            return (isStraightPathClear(row1, col1, row1, col2) && 
-                    isStraightPathClear(row1, col2, row2, col2) && 
-                    !buttons[row1][col2].isVisible()) ||
-                   (isStraightPathClear(row1, col1, row2, col1) 
-                    && isStraightPathClear(row2, col1, row2, col2) 
-                    && !buttons[row2][col1].isVisible());
+            
         }
 
-        private boolean isOutPathClear(int row1, int col1, int row2, int col2) {
-            if(row1==0 && row2==0 || row1==SIZE-1 && row2 == SIZE-1 || 
-                    col1==0 && col2==0 ||col1==SIZE-1 && col2==SIZE-1) return true;
-            if(isStraightPathClear(row1, col1, 0, col1) && (!buttons[0][col1].isVisible()||row1==0)&&
-                    isStraightPathClear(row2, col2, 0, col2)&& (!buttons[0][col2].isVisible()||row2==0)){
-                System.out.println("1");
-                return true;
-            }
-            if(isStraightPathClear(row1, col1, SIZE-1, col1) && (!buttons[SIZE-1][col1].isVisible()||row1==SIZE-1)&&
-                    isStraightPathClear(row2, col2, SIZE-1, col2) && (!buttons[SIZE-1][col2].isVisible()||row2==SIZE-1)){
-                System.out.println("2");
-                return true;
-            } 
-            if(isStraightPathClear(row1, col1, row1, 0) && (!buttons[row1][0].isVisible()||col1==0)&&
-                    isStraightPathClear(row2, col2, row2, 0)&& (!buttons[row2][0].isVisible()||col2==0)){
-                System.out.println("3");
-                return true;
-            }
-            if(isStraightPathClear(row1, col1, row1, SIZE-1) && (!buttons[row1][SIZE-1].isVisible()||col1==SIZE-1)&&
-                    isStraightPathClear(row2, col2, row2, SIZE-1)&& (!buttons[row2][SIZE-1].isVisible()||col2==SIZE-1)){
-                System.out.println("4");
-                return true;
-            } 
-            return false;
-        }
-
-        private boolean isTwoCornerPathClear(int row1, int col1, int row2, int col2) {
-            for (int i = 0; i < SIZE; i++) {
-                if (!buttons[row1][i].isVisible() &&
-                    isOneCornerPathClear(row1, col1, row1, i) &&
-                    isOneCornerPathClear(row1, i, row2, col2)) return true;
-                
-                if (!buttons[i][col1].isVisible() &&
-                    isOneCornerPathClear(row1, col1, i, col1) &&
-                    isOneCornerPathClear(i, col1, row2, col2)) return true;
-            }
-            return false;
-        }
+        
     }
     
-    private class LinePanel extends JPanel {
-        private Point start;
-        private Point end;
-
-        public void drawLineBetweenButtons(JButton b1, JButton b2) {
-            start = SwingUtilities.convertPoint(b1, b1.getWidth() / 2, b1.getHeight() / 2, this);
-            end = SwingUtilities.convertPoint(b2, b2.getWidth() / 2, b2.getHeight() / 2, this);
-            // Tạo các điểm gấp khúc
-            int midX = (start.x + end.x) / 2; 
-            int midY = start.y; 
-
-            // Vẽ lại
-            repaint();
-        }
-
-
-        public void clearLine() {
-            start = null;
-            end = null;
-            repaint();
-        }
-
-        @Override
-        protected void paintComponent(Graphics g) {
-            super.paintComponent(g);
-            if (start != null && end != null) {
-                Graphics2D g2 = (Graphics2D) g;
-                g2.setColor(Color.RED);
-                g2.setStroke(new BasicStroke(2));
-                g2.drawLine(start.x, start.y, end.x, end.y);
-            }
-        }
-    }
 
 
 
@@ -953,6 +897,7 @@ public class GameClientFrm extends javax.swing.JFrame {
     private javax.swing.JLabel competitorNicknameValue;
     private javax.swing.JLabel competitorNumberOfWinLabel;
     private javax.swing.JLabel competitorNumberOfWinValue;
+    private javax.swing.JPanel competitorPanel;
     private javax.swing.JButton competotorButtonImage;
     private javax.swing.JLabel competotorNumberOfGameLabel;
     private javax.swing.JLabel competotorNumberOfGameValue;
@@ -976,6 +921,7 @@ public class GameClientFrm extends javax.swing.JFrame {
     private javax.swing.JMenu mainMenu;
     private javax.swing.JTextArea messageTextArea;
     private javax.swing.JTextField messageTextField;
+    private javax.swing.JPanel mypanel;
     private javax.swing.JMenuItem newGameMenuItem;
     private javax.swing.JLabel playerButtonImage;
     private javax.swing.JLabel playerLabel;

@@ -625,6 +625,7 @@ public class HomePageFrm extends javax.swing.JFrame {
                 Map uploadResult = cloudinary.uploader().upload(file, ObjectUtils.emptyMap());
                 String urlStr = (String) uploadResult.get("url");
                 URL url = new URL(urlStr);
+                Client.user.setAvatar(urlStr);
                 Client.socketHandle.write("updateAvatar,"+url);
                 Image image = ImageIO.read(url);
                 Image scaledImage = image.getScaledInstance(jLabel8.getWidth(), jLabel8.getHeight(), Image.SCALE_SMOOTH);

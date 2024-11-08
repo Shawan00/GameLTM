@@ -23,7 +23,7 @@ public class HistoryDao extends connectToDatabase {
     public void addhistory(History history){
         try {
             PreparedStatement preparedStatement = con.prepareStatement(
-                    "INSERT INTO `btl2`.`history` (`idUser1`, `idUser2`, `scoreUser1`, `scoreUser2`)"
+                    "INSERT INTO `btlviet`.`history` (`idUser1`, `idUser2`, `scoreUser1`, `scoreUser2`)"
                     + "VALUES (?, ?, ?, ?);");
             preparedStatement.setInt(1, history.getIdUser1());
             preparedStatement.setInt(2, history.getIdUser2());

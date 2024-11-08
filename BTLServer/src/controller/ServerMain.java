@@ -3,6 +3,7 @@ package controller;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import dao.UserDAO;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -44,10 +45,19 @@ public class ServerMain {
                 executor.execute(serverThread);
             }
         } catch (IOException ex) {
+            for(ServerThread serverThread:serverThreadBus.getListServerThreads()){
+                    UserDAO userDAO = new UserDAO();
+                    userDAO.updateToOffline(serverThread.getUser().getID());
+                }
             ex.printStackTrace();
         } finally {
             try {
+                for(ServerThread serverThread:serverThreadBus.getListServerThreads()){
+                    UserDAO userDAO = new UserDAO();
+                    userDAO.updateToOffline(serverThread.getUser().getID());
+                }
                 listener.close();
+                
             } catch (IOException ex) {
                 ex.printStackTrace();
             }

@@ -15,9 +15,10 @@ public class Room {
     private ServerThread user2;
     private String password;
     private final UserDAO userDAO;
-    private int [][] matrix;
-    private int scoreUser1, scoreUser2, cntRe = 0, valueRe = 0;
+    private int scoreUser1, scoreUser2;
+    private int cardSelectedN1, cardSelectedN2;
     private boolean sendResult, updateHistory;
+    private List<String> listCard;
 
     public Room(ServerThread user1) {
         System.out.println("Tạo phòng thành công, ID là: " + ServerMain.ROOM_ID);
@@ -28,77 +29,51 @@ public class Room {
         userDAO = new UserDAO();
         this.user1 = user1;
         this.user2 = null;
-        this.cntRe = 0;
-        this.valueRe = 8;
-        updateMatrix();
+        cardSelectedN2 = 0;
+        cardSelectedN1 = 0;
         scoreUser1 = -1;
         scoreUser2 = -1;
+        listCard = new ArrayList<>();
+        addListCard();
     }
     
-    private void updateValue(int a){
-        for (int i = 0; i < 7; i++) {
-            boolean check = true;
-            for (int j = 0; j < 7; j++) {
-                if(matrix[i][j] == a){
-                    matrix[i][j] = this.valueRe;
-                    cntRe++;
-                    if(cntRe==2){
-                        cntRe = 0;
-                        this.valueRe++;
-                    }
-                    check = false;
-                    break;
-                }
+    private void addListCard(){
+        for(int i = 1; i <= 9; i++){
+            String str = "rcbn";
+            for(Character x: str.toCharArray()){
+                this.listCard.add(i+x.toString());
             }
-            if(!check) break;
         }
+        Collections.shuffle(listCard);
     }
-    
-    public void updateMatrix(){
-        Random rand = new Random();
-        matrix = new int[7][7];
-        int[]arrCnt = new int[8];
-        for (int i = 0; i < 7; i++) {
-            for (int j = 0; j < 7; j++) {
-                matrix[i][j] = rand.nextInt(8); 
-                arrCnt[matrix[i][j]]++;
-            }
-        }
-        
-        
-        for(int i = 0; i< 8;i++){
-            if(arrCnt[i]%2==1){
-                updateValue(i);
-            }
-        }
-        
- 
-        shuffleMatrix(matrix);
+
+    public List<String> getListCard() {
+        return listCard;
     }
-    
-    public void shuffleMatrix(int[][] matrix) {
-        int rows = 7;
-        int cols = 7;
-        List<Integer> list = new ArrayList<>();
-        for (int[] row : matrix) {
-            for (int value : row) {
-                list.add(value);
-            }
-        }
-        Collections.shuffle(list);
-        int index = 0;
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < cols; j++) {
-                matrix[i][j] = list.get(index++);
-            }
-        }
+
+    public void setListCard(List<String> listCard) {
+        this.listCard = listCard;
+    }
+
+    public int getCardSelectedN1() {
+        return cardSelectedN1;
+    }
+
+    public void setCardSelectedN1(int cardSeletedN1) {
+        this.cardSelectedN1 = cardSelectedN1;
+    }
+
+    public int getCardSelectedN2() {
+        return cardSelectedN2;
+    }
+
+    public void setCardSelectedN2(int cardSelectedN2) {
+        this.cardSelectedN2 = cardSelectedN2;
     }
     
     
     
-    public int[][] getMatrix() {
-        return matrix;
-    }
+    
     
     
     public int getId() {
