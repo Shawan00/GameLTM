@@ -93,7 +93,7 @@ public class CompetitorInfoFrm extends javax.swing.JFrame {
 
         jLabel6.setBackground(new java.awt.Color(102, 102, 102));
 
-        jPanel1.setBackground(new java.awt.Color(153, 153, 153));
+        jPanel1.setBackground(new java.awt.Color(0, 153, 153));
 
         nicknameLabel.setFont(new java.awt.Font("FVF Fernando 08", 0, 14)); // NOI18N
         nicknameLabel.setForeground(new java.awt.Color(255, 255, 255));

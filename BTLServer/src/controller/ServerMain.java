@@ -23,7 +23,7 @@ public class ServerMain {
         ROOM_ID = 1;
 
         try {
-            listener = new ServerSocket(7777);
+            listener = new ServerSocket(10);
         } catch (IOException e) {
             e.printStackTrace();
             System.exit(1);

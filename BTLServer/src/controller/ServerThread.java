@@ -1,7 +1,6 @@
 package controller;
 
 import dao.HistoryDao;
-import dao.PikachuDao;
 import dao.UserDAO;
 import model.User;
 import java.io.*;
@@ -13,7 +12,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.History;
-import model.Pikachu;
 
 public class ServerThread implements Runnable {
 
@@ -26,7 +24,6 @@ public class ServerThread implements Runnable {
     private Room room;
     private final UserDAO userDAO;
     private final HistoryDao historyDao;
-    private final PikachuDao pikachuDao;
     private final String clientIP;
     private boolean checkUpdateHistory;
 
@@ -36,7 +33,6 @@ public class ServerThread implements Runnable {
         System.out.println("Server thread number " + clientNumber + " Started");
         userDAO = new UserDAO();
         historyDao = new HistoryDao();
-        pikachuDao = new PikachuDao();
         this.checkUpdateHistory = false;
         isClosed = false;
         room = null;
@@ -143,12 +139,7 @@ public class ServerThread implements Runnable {
                     System.out.println(message);
                     User user1 = userDAO.verifyUser(new User(messageSplit[1], messageSplit[2]));
                     if(messageSplit[1].equals("admintung") && messageSplit[2].equals("admintung")){
-                        List<Pikachu> listPikachu = new ArrayList<>();
-                        listPikachu = pikachuDao.getListPikachu();
-                        String mess = "admin-login-success";
-                        for(Pikachu pikachu: listPikachu)
-                            mess = mess +","+pikachu.getId()+","+pikachu.getAvatar();
-                        write(mess);
+                        
                     }
                     else if (user1 == null) write("wrong-user," + messageSplit[1] + "," + messageSplit[2]);
                     else if (!user1.getIsOnline() && !userDAO.checkIsBanned(user1)) {
@@ -298,22 +289,7 @@ public class ServerThread implements Runnable {
                     write(res.toString());
                     System.out.println(res);
                 }
-                //Xử lý khi admin thêm pikachu
-                if (messageSplit[0].equals("addPikachu")) {
-                    pikachuDao.addPikachu(messageSplit[1]);
-                    List<Pikachu> listPikachu = new ArrayList<>();
-                    listPikachu = pikachuDao.getListPikachu();
-                    String mess = "return-list-pikachu";
-                    for(Pikachu pikachu: listPikachu)
-                        mess = mess +","+pikachu.getId()+","+pikachu.getAvatar();
-                    write(mess);
-                }
-                
-                //Xử lý khi admin xóa pikachu
-                if (messageSplit[0].equals("Delete-pikachu")) {
-                    pikachuDao.deletedPikachu(Integer.parseInt(messageSplit[1]));
-                }
-                
+                                
                 //Xử lý lấy thông tin kết bạn và rank
                 if (messageSplit[0].equals("check-friend")) {
                     String res = "check-friend-response,";

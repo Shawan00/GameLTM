@@ -1,16 +1,12 @@
 package controller;
-import BIN.AddPlayFrm;
 import java.io.IOException;
 import java.util.List;
 import model.User;
 import view.*;
 import javax.swing.*;
 import model.History;
-import model.Pikachu;
 public class Client {
     public static User user;
-    public static AdminFrm adminFrm;
-    public static AddPlayFrm addPlayFrm;
     public static LoginFrm loginFrm;
     public static RegisterFrm registerFrm;
     public static HomePageFrm homePageFrm;
@@ -54,11 +50,7 @@ public class Client {
 
     public static void openView(View viewName) throws IOException {
         if (viewName != null) {
-            switch (viewName) {
-                case ADDPLAY:
-                    addPlayFrm = new AddPlayFrm();
-                    addPlayFrm.setVisible(true);
-                    break;
+            switch (viewName) {                
                 case LOGIN:
                     loginFrm = new LoginFrm();
                     loginFrm.setVisible(true);
@@ -116,17 +108,7 @@ public class Client {
         }
     }
     
-    public static void openView(View viewName, List<Pikachu> listPikachu, String str) {
-        if (viewName != null) {
-            switch (viewName) {
-                case ADMIN:
-                    adminFrm = new AdminFrm(listPikachu);
-                    adminFrm.setVisible(true);
-                    break;
-            }
-        }
-    }
-    
+        
     
 
     public static void openView(View viewName, User competitor, int room_ID, String competitorIP, List<String>listCard) throws IOException {
@@ -173,13 +155,7 @@ public class Client {
 
     public static void closeView(View viewName) {
         if (viewName != null) {
-            switch (viewName) {
-                case ADMIN:
-                    adminFrm.dispose();
-                    break;
-                case ADDPLAY:
-                    addPlayFrm.dispose();
-                    break;
+            switch (viewName) {                
                 case LOGIN:
                     loginFrm.dispose();
                     break;
@@ -240,8 +216,6 @@ public class Client {
     }
 
     public static void closeAllViews() {
-        if(adminFrm != null) adminFrm.dispose();
-        if(addPlayFrm != null) addPlayFrm.dispose();
         if (loginFrm != null) loginFrm.dispose();
         if (registerFrm != null) registerFrm.dispose();
         if (homePageFrm != null) homePageFrm.dispose();

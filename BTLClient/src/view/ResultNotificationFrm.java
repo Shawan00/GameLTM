@@ -98,12 +98,10 @@ public class ResultNotificationFrm extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         playerLabel1 = new javax.swing.JLabel();
         playerButtonImage1 = new javax.swing.JLabel();
-        playerNicknameLabel1 = new javax.swing.JLabel();
         myNameText = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         competitorLabel = new javax.swing.JLabel();
-        competitorNicknameLabel = new javax.swing.JLabel();
         competitorNameText = new javax.swing.JLabel();
         competotorButtonImage = new javax.swing.JButton();
         scoreText = new javax.swing.JLabel();
@@ -197,7 +195,7 @@ public class ResultNotificationFrm extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 204));
+        jPanel1.setBackground(new java.awt.Color(255, 153, 102));
         jPanel1.setForeground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setFont(new java.awt.Font("FVF Fernando 08", 1, 24)); // NOI18N
@@ -220,7 +218,7 @@ public class ResultNotificationFrm extends javax.swing.JFrame {
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
-        jPanel3.setBackground(new java.awt.Color(102, 102, 102));
+        jPanel3.setBackground(new java.awt.Color(0, 153, 153));
 
         playerLabel1.setFont(new java.awt.Font("FVF Fernando 08", 0, 12)); // NOI18N
         playerLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -245,9 +243,6 @@ public class ResultNotificationFrm extends javax.swing.JFrame {
 
         playerButtonImage1.setBackground(new java.awt.Color(102, 102, 102));
 
-        playerNicknameLabel1.setFont(new java.awt.Font("FVF Fernando 08", 0, 12)); // NOI18N
-        playerNicknameLabel1.setText("Tên");
-
         myNameText.setFont(new java.awt.Font("FVF Fernando 08", 0, 12)); // NOI18N
         myNameText.setText("//Tên");
 
@@ -262,9 +257,7 @@ public class ResultNotificationFrm extends javax.swing.JFrame {
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addComponent(playerButtonImage1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(playerNicknameLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(myNameText, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(myNameText, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 13, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -277,13 +270,12 @@ public class ResultNotificationFrm extends javax.swing.JFrame {
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(playerButtonImage1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(playerNicknameLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(32, 32, 32)
                         .addComponent(myNameText, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
-        jPanel7.setBackground(new java.awt.Color(102, 102, 102));
+        jPanel7.setBackground(new java.awt.Color(102, 0, 102));
         jPanel7.setForeground(new java.awt.Color(102, 102, 102));
 
         competitorLabel.setFont(new java.awt.Font("FVF Fernando 08", 0, 12)); // NOI18N
@@ -301,11 +293,10 @@ public class ResultNotificationFrm extends javax.swing.JFrame {
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(competitorLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addComponent(competitorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(8, Short.MAX_VALUE))
         );
-
-        competitorNicknameLabel.setFont(new java.awt.Font("FVF Fernando 08", 0, 12)); // NOI18N
-        competitorNicknameLabel.setText("Tên");
 
         competitorNameText.setFont(new java.awt.Font("FVF Fernando 08", 0, 12)); // NOI18N
         competitorNameText.setText("//tên");
@@ -327,9 +318,7 @@ public class ResultNotificationFrm extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(competotorButtonImage, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(competitorNicknameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(competitorNameText, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(competitorNameText, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -341,8 +330,7 @@ public class ResultNotificationFrm extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(competotorButtonImage, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(competitorNicknameLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(32, 32, 32)
                         .addComponent(competitorNameText)))
                 .addContainerGap(15, Short.MAX_VALUE))
         );
@@ -378,7 +366,7 @@ public class ResultNotificationFrm extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 96, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -402,7 +390,6 @@ public class ResultNotificationFrm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel competitorLabel;
     private javax.swing.JLabel competitorNameText;
-    private javax.swing.JLabel competitorNicknameLabel;
     private javax.swing.JButton competotorButtonImage;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
@@ -418,7 +405,6 @@ public class ResultNotificationFrm extends javax.swing.JFrame {
     private javax.swing.JLabel playerLabel;
     private javax.swing.JLabel playerLabel1;
     private javax.swing.JLabel playerNicknameLabel;
-    private javax.swing.JLabel playerNicknameLabel1;
     private javax.swing.JLabel playerNicknameValue;
     private javax.swing.JLabel playerNumberOfGameLabel;
     private javax.swing.JLabel playerNumberOfGameValue;

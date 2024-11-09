@@ -8,12 +8,10 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
-import BIN.Play;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import model.History;
-import model.Pikachu;
 
 public class SocketHandle implements Runnable {
     private BufferedWriter outputWriter;
@@ -28,15 +26,8 @@ public class SocketHandle implements Runnable {
                     message[i + 3].equals("1")));
         }
         return friend;
-    }
+    }    
     
-    public List<Play> getListPlay(String[] message){
-        List<Play> listPlay = new ArrayList<>();
-        for(int i = 1; i< message.length;i+=2){
-            listPlay.add(new Play(Integer.parseInt(message[i]),message[i+1]));
-        }
-        return listPlay;
-    }
     
     public List<User> getListRank(String[] message) {
         List<User> friend = new ArrayList<>();
@@ -76,7 +67,7 @@ public class SocketHandle implements Runnable {
     public void run() {
 
         try {
-            socketOfClient = new Socket("127.0.0.1", 7777);
+            socketOfClient = new Socket("localhost", 10);
             System.out.println("Kết nối thành công!");
             outputWriter = new BufferedWriter(new OutputStreamWriter(socketOfClient.getOutputStream()));
             BufferedReader inputReader = new BufferedReader(new InputStreamReader(socketOfClient.getInputStream()));
@@ -97,14 +88,13 @@ public class SocketHandle implements Runnable {
                 }
                 
                 
-                if(messageSplit[0].equals("admin-login-success")){
-                    List<Pikachu> listPikachu = new ArrayList<>();
-                    for(int i = 1; i < messageSplit.length;i+=2){
-                        listPikachu.add(new Pikachu(Integer.parseInt(messageSplit[i]),messageSplit[i+1]));
-                    }
-                    Client.closeAllViews();
-                    Client.openView(Client.View.ADMIN, listPikachu, "str");
-                }
+//                if(messageSplit[0].equals("admin-login-success")){
+//                    List<Pikachu> listPikachu = new ArrayList<>();
+//                    for(int i = 1; i < messageSplit.length;i+=2){
+//                        listPikachu.add(new Pikachu(Integer.parseInt(messageSplit[i]),messageSplit[i+1]));
+//                    }
+//                    Client.closeAllViews();
+//                }
                 if (messageSplit[0].equals("server-send-id")) {
                     int serverId = Integer.parseInt(messageSplit[1]);
                 }
@@ -158,13 +148,12 @@ public class SocketHandle implements Runnable {
                     }
                 }
                 //Xử lý khi admin trả về danh sách pikachu
-                if(messageSplit[0].equals("return-list-pikachu")){
-                    List<Pikachu> listPikachu = new ArrayList<>();
-                    for(int i = 1; i < messageSplit.length;i+=2){
-                        listPikachu.add(new Pikachu(Integer.parseInt(messageSplit[i]),messageSplit[i+1]));
-                    }
-                    Client.adminFrm.updateListPikachu(listPikachu);
-                }
+//                if(messageSplit[0].equals("return-list-pikachu")){
+//                    List<Pikachu> listPikachu = new ArrayList<>();
+//                    for(int i = 1; i < messageSplit.length;i+=2){
+//                        listPikachu.add(new Pikachu(Integer.parseInt(messageSplit[i]),messageSplit[i+1]));
+//                    }
+//                }
                 //Xử lý khi client nhận list lịch sử
                 if (messageSplit[0].equals("returnHistory")) {
                     List<History> listHistory = new ArrayList<>();

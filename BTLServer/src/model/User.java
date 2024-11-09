@@ -59,7 +59,7 @@ public class User {
     }
 
     public void updateScore() {
-        this.score = this.numberOfDraw+this.numberOfWin*3;
+        this.score = this.numberOfDraw+this.numberOfWin*2;
     }
     
     
