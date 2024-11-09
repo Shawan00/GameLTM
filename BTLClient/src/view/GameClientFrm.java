@@ -614,7 +614,7 @@ public class GameClientFrm extends javax.swing.JFrame {
         countDownLabel.setFont(new java.awt.Font("FVF Fernando 08", 0, 12)); // NOI18N
         countDownLabel.setForeground(new java.awt.Color(255, 0, 0));
         countDownLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        countDownLabel.setText("Thời gian:00:60");
+        countDownLabel.setText("00:60");
 
         mainMenu.setText("Menu");
         mainMenu.setToolTipText("");
@@ -848,6 +848,8 @@ public class GameClientFrm extends javax.swing.JFrame {
             System.out.println("Ảnh không tải được từ file");
         }
         competitorPanel.add(label);
+        competitorPanel.revalidate();
+        competitorPanel.repaint();
         
     }
     
@@ -882,6 +884,8 @@ public class GameClientFrm extends javax.swing.JFrame {
                         System.out.println("Ảnh không tải được từ file");
                     }
                     mypanel.add(label);
+                    mypanel.revalidate();                   
+                    mypanel.repaint();
 
                     score+=Integer.parseInt(value.toCharArray()[0]+"");
                     score%=10;

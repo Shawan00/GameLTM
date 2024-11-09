@@ -37,7 +37,8 @@ public class HistoryFrm extends javax.swing.JFrame {
         defaultTableModel.addColumn("Thời gian");
         historyTable.setModel(defaultTableModel);  
         historyTable.setShowGrid(false);
-        historyTable.setIntercellSpacing(new Dimension(0, 0)); 
+        historyTable.setIntercellSpacing(new Dimension(0, 0));
+        historyTable.getTableHeader().setFont(new java.awt.Font("FVF Fernando 08", 1, 13));
         setData(listHistory);
         
     }
@@ -69,7 +70,8 @@ public class HistoryFrm extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/cardlogo.png"))); // NOI18N
 
-        historyTable.setFont(new java.awt.Font("FVF Fernando 08", 0, 12)); // NOI18N
+        historyTable.setBackground(new java.awt.Color(245, 255, 255));
+        historyTable.setFont(new java.awt.Font("FVF Fernando 08", 0, 11)); // NOI18N
         historyTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
@@ -82,6 +84,7 @@ public class HistoryFrm extends javax.swing.JFrame {
             }
         ));
         historyTable.setGridColor(new java.awt.Color(0, 255, 204));
+        historyTable.setRowHeight(35);
         jScrollPane1.setViewportView(historyTable);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

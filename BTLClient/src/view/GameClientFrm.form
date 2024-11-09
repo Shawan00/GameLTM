@@ -703,7 +703,7 @@
           <Color blue="0" green="0" red="ff" type="rgb"/>
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="Th&#x1edd;i gian:00:60"/>
+        <Property name="text" type="java.lang.String" value="00:60"/>
       </Properties>
     </Component>
   </SubComponents>

@@ -56,7 +56,7 @@ public class HomePageFrm extends javax.swing.JFrame {
             winRatioValue.setText(String.format("%.2f", (float) Client.user.getNumberOfWin() / Client.user.getNumberOfGame() * 100) + "%");
         }
         drawValue.setText("" + Client.user.getNumberOfDraw());
-        markValue.setText("" + (Client.user.getNumberOfDraw() + Client.user.getNumberOfWin() * 3));
+        markValue.setText("" + (Client.user.getNumberOfDraw() + Client.user.getNumberOfWin() * 2));
         rankValue.setText("" + Client.user.getRank());
     }
     
@@ -64,7 +64,7 @@ public class HomePageFrm extends javax.swing.JFrame {
         numberOfWinValue.setText(Integer.toString(Client.user.getNumberOfWin()));
         numberOfGameValue.setText(Integer.toString(Client.user.getNumberOfGame()));
         drawValue.setText("" + Client.user.getNumberOfDraw());
-        markValue.setText("" + (Client.user.getNumberOfDraw() + Client.user.getNumberOfWin() * 3));
+        markValue.setText("" + (Client.user.getNumberOfDraw() + Client.user.getNumberOfWin() * 2));
         rankValue.setText("" + Client.user.getRank());
         if (Client.user.getNumberOfGame() == 0) {
             winRatioValue.setText("-");

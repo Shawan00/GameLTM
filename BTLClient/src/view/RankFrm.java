@@ -43,7 +43,7 @@ public class RankFrm extends javax.swing.JFrame {
         for (User user : listUserStatics) {
             tableModel.addRow(new Object[]{
                     user.getNickname(),
-                    (user.getNumberOfDraw()+user.getNumberOfWin()*3)+"",
+                    (user.getNumberOfDraw()+user.getNumberOfWin()*2)+"",
                     i<3?new ImageIcon("assets/" + rankSrc.get(i) + ".png"):new ImageIcon()
             });
             i++;
